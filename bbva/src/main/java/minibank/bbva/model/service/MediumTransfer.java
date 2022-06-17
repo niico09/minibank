@@ -8,27 +8,51 @@ import org.springframework.stereotype.Service;
 import minibank.bbva.model.dao.DAO;
 import minibank.bbva.model.entitys.Account;
 import minibank.bbva.model.entitys.Movements;
+import minibank.bbva.model.entitys.enums.TypeMoney;
 
 @Service
 public class MediumTransfer {
 
 	@Autowired
-	private DAO<Movements> movementsDAO;
+	MovementService movementsDAO;
 
 	@Autowired
-	private DAO<Account> accountDAO;
+	AccountService accountDAO;
+
+	@Autowired
+	ChangeMoneyImpl changeMoneyImpl;
 
 	public Boolean transfer(Movements movements) {
 
 		if (verifiyAccounts(movements.getOrigin(), movements.getDestination())
 				&& verifyMoney(movements.getOrigin(), movements.getAmount())) {
 
+			movements = transformMoney(movements.getOrigin(), movements.getDestination(), movements);
+
 			movementsDAO.save(movements);
 			updateAccount(movements.getOrigin(), 0, movements.getAmount());
 			updateAccount(movements.getDestination(), 1, movements.getAmount());
-
+			return Boolean.TRUE;
+		} else {
+			return Boolean.FALSE;
 		}
-		return true;
+
+	}
+
+	private Movements transformMoney(String origin, String destination, Movements movements) {
+
+		var mv = movements;
+		var originAccount = accountDAO.read(origin).get();
+		var destinyAccount = accountDAO.read(destination).get();
+		var deMoney = originAccount.getTypeMoney().equals(TypeMoney.EUR.toString()) ? TypeMoney.EUR : TypeMoney.USA;
+		var aMoney = destinyAccount.getTypeMoney().equals(TypeMoney.EUR.toString()) ? TypeMoney.EUR : TypeMoney.USA;
+
+		ChangesResult changesResult = (ChangesResult) changeMoneyImpl.cambiar(deMoney, aMoney, movements.getAmount());
+
+		mv.setTypeMoney(aMoney.toString());
+		mv.setAmount(changesResult.getResultado());
+
+		return mv;
 	}
 
 	// 0 = RESTA ; 1 = SUMA
