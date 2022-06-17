@@ -12,6 +12,7 @@ import minibank.bbva.model.dao.DAO;
 import minibank.bbva.model.entitys.Account;
 import minibank.bbva.model.entitys.Person;
 import minibank.bbva.model.entitys.enums.TypeMoney;
+import minibank.bbva.model.service.ChangeMoneyImpl;
 
 @SpringBootTest
 class BbvaApplicationTests {
@@ -72,6 +73,25 @@ class BbvaApplicationTests {
 		person = personService.read("38742415").get();
 		Assert.assertTrue(person != null);
 		Assert.assertEquals("prueba3", person.getName());
+	}
+
+	@Test
+	void tasasCheck() {
+
+		ChangeMoneyImpl change = new ChangeMoneyImpl();
+		var result = change.cambiar(TypeMoney.EUR, TypeMoney.USA, 100.000);
+
+		Assert.assertSame(1.05, result.getTasa());
+		Assert.assertSame(1.05 * 100.000, result.getResultado());
+
+		result = change.cambiar(TypeMoney.USA, TypeMoney.EUR, 100.000);
+		Assert.assertSame(0.95, result.getTasa());
+		Assert.assertSame(0.95 * 100.000, result.getResultado());
+
+		result = change.cambiar(TypeMoney.USA, TypeMoney.USA, 100.000);
+		Assert.assertSame(1, result.getTasa());
+		Assert.assertSame(1 * 100.000, result.getResultado());
+
 	}
 
 }

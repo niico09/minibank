@@ -4,8 +4,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.annotation.Resource;
@@ -18,6 +21,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import minibank.bbva.model.dao.DAO;
+import minibank.bbva.model.entitys.Movements;
 import minibank.bbva.model.entitys.Person;
 
 @Repository("daoPerson")
@@ -91,6 +95,25 @@ public class PersonService implements DAO<Person> {
 		String sql = "SELECT * FROM Persona WHERE Name = ?";
 		Person a = jdbc.queryForObject(sql, this::mapElements, name);
 		return Optional.ofNullable(a);
+	}
+
+	public List<Person> getForName(String name) {
+		String sql = "SELECT * FROM Persona WHERE Name LIKE ' ? ' ";
+		var listPersons = new ArrayList<Person>();
+
+		List<Map<String, Object>> rows = jdbc.queryForList(sql, name);
+		for (Map rs : rows) {
+			var obj = new Person();
+			obj.setCellphone((String) rs.get("Cellphone"));
+			obj.setDni((Long) rs.get("Dni"));
+			obj.setEmail((String) rs.get("Email"));
+			obj.setId((long) rs.get("id"));
+			obj.setLastName((String) rs.get("LastName"));
+			obj.setName((String) rs.get("Name"));
+			listPersons.add(obj);
+		}
+		return listPersons;
+
 	}
 
 }
