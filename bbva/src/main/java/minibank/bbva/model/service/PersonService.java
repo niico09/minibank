@@ -82,12 +82,12 @@ public class PersonService implements DAO<Person> {
 
 	@Override
 	public boolean update(Person person) {
-		throw new MethodNotFoundException();
+		throw new MethodNotFoundException("This method it's unsupportable in this moment.");
 	}
 
 	@Override
 	public List<Person> readSpecific(String id) {
-		throw new MethodNotFoundException();
+		throw new MethodNotFoundException("This method it's unsupportable in this moment.");
 	}
 
 	@Override

@@ -2,6 +2,8 @@ package minibank.bbva;
 
 import java.util.Date;
 
+import javax.el.MethodNotFoundException;
+
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -128,7 +130,7 @@ class BbvaApplicationTests {
 
 		if (checkResult) {
 			var listMovements = movementService.readSpecific(movements.getOrigin());
-			
+
 			Assert.assertTrue(!listMovements.isEmpty());
 
 			listMovements.forEach(x -> {
@@ -137,7 +139,23 @@ class BbvaApplicationTests {
 					Assert.assertTrue(movements.getAmount() != x.getAmount());
 				}
 			});
+		}
 
+	}
+
+	@Test
+	void updatePersonErrorException() {
+		var person = new Person();
+		person.setCellphone("11234678");
+		person.setDni(38742415L);
+		person.setEmail("a@gmail.com");
+		person.setLastName("a2");
+		person.setName("prueba3");
+
+		try {
+			personService.update(person);
+		} catch (Exception e) {
+			Assert.assertEquals(e.getMessage(), "This method it's unsupportable in this moment.");
 		}
 
 	}
