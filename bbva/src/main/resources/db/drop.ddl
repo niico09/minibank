@@ -1,3 +1,15 @@
 drop table if exists CLIENTES CASCADE ;
+drop table if exists Compra CASCADE ;
+drop table if exists CompraVenta CASCADE ;
 drop table if exists CUENTAS CASCADE ;
+drop table if exists CUENTAS_CLIENTES CASCADE ;
+drop table if exists CUENTAS_EXTRANJERAS CASCADE ;
+drop table if exists CUENTAS_LOCALES CASCADE ;
+drop table if exists Deposito CASCADE ;
+drop table if exists DepositoExtraccion CASCADE ;
+drop table if exists Extraccion CASCADE ;
 drop table if exists MOVIMIENTOS CASCADE ;
+drop table if exists Transferencia CASCADE ;
+drop table if exists TransferenciaCredito CASCADE ;
+drop table if exists TransferenciaDebito CASCADE ;
+drop table if exists Venta CASCADE ;

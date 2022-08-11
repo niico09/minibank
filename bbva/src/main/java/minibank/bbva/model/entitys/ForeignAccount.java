@@ -20,7 +20,7 @@ import minibank.bbva.model.entitys.enums.TypeMoney;
 public class ForeignAccount extends Account {
 
 	@Enumerated(EnumType.STRING)
-	private TypeMoney typeMoney;
+	private TypeMoney moneda;
 
 	public void agregarMovimiento(Sells vta) {
 		setSaldoActual(getSaldoActual() - vta.getMonto() - vta.getComision());
@@ -34,12 +34,12 @@ public class ForeignAccount extends Account {
 		cmp.setCuenta(this);
 	}
 
-	public TypeMoney getTypeMoney() {
-		return typeMoney;
+	public TypeMoney getMoneda() {
+		return moneda;
 	}
 
-	public void setTypeMoney(TypeMoney typeMoney) {
-		this.typeMoney = typeMoney;
+	public void setMoneda(TypeMoney moneda) {
+		this.moneda = moneda;
 	}
 
 }

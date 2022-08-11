@@ -44,7 +44,7 @@ public class AccountDAO {
 	}
 
 	public Collection<Account> readAll() {
-		return (List<Account>) entityManager.createNamedQuery("CUENTAS.buscarTodas").getResultList();
+		return (List<Account>) entityManager.createNamedQuery("CUENTAS.getAll").getResultList();
 	}
 
 	public List<ForeignAccount> getCuentaPorMoneda(TypeMoney moneda) {

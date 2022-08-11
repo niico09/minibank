@@ -130,4 +130,21 @@ public abstract class Account {
 		this.movimientos = movimientos;
 	}
 
+	public void agregarMovimiento(TransferDebit transferDebit) {
+		saldoActual = saldoActual - transferDebit.getMonto();
+		movimientos.add(transferDebit);
+		transferDebit.setCuenta(this);
+	}
+
+	public void agregarMovimiento(TransferCredit transferCredit) {
+		saldoActual = saldoActual + transferCredit.getMonto();
+		movimientos.add(transferCredit);
+		transferCredit.setCuenta(this);
+
+	}
+
+	public abstract void agregarMovimiento(Sells vta);
+
+	public abstract void agregarMovimiento(Purchases cmp);
+
 }

@@ -1,4 +1,4 @@
-package minibank.bbva.inter;
+package minibank.bbva.impl.inter;
 
 import minibank.bbva.model.entitys.enums.TypeMoney;
 

@@ -6,10 +6,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-@Entity(name = "Venta")
+@Entity(name = "Deposito")
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class Sells extends PurchaseSells {
+public class Deposit extends DepositExtraction {
 
 }

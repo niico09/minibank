@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 
-import minibank.bbva.inter.ResultChange;
+import minibank.bbva.impl.inter.ResultChange;
 
 public class ResultDeserializer extends JsonDeserializer<ResultChange> {
 

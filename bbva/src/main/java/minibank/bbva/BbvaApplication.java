@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.transaction.TransactionAutoConfigu
 import org.springframework.context.annotation.ImportResource;
 
 @SpringBootApplication(exclude = TransactionAutoConfiguration.class)
-@ImportResource("spring/contexto-jpa.xml")
+@ImportResource("spring/contexto-jpa-test.xml")
 public class BbvaApplication {
 
 	public static void main(String[] args) {

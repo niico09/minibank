@@ -7,12 +7,14 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import minibank.bbva.inter.ResultChange;
-import minibank.bbva.inter.ServiceChange;
+import minibank.bbva.impl.inter.ResultChange;
+import minibank.bbva.impl.inter.ServiceChange;
 import minibank.bbva.model.entitys.enums.TypeMoney;
 
+@Component("ServiceChange")
 public class ServiceImpl implements ServiceChange {
 
 	HttpEntity<Void> httpEntity;

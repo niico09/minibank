@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import minibank.bbva.model.dao.AccountDAO;
@@ -17,6 +18,7 @@ import minibank.bbva.model.entitys.ForeignAccount;
 import minibank.bbva.model.entitys.LocalAccount;
 import minibank.bbva.model.entitys.enums.TypeMoney;
 
+@Component
 public class AccountService {
 
 	@Resource(name = "clienteDAO")
@@ -59,7 +61,8 @@ public class AccountService {
 			cuenta.setSaldoActual(saldoInicial);
 			cuenta.setDescubiertoAcordado(0.0D);
 			cuenta.setTitular(titular);
-			((ForeignAccount) cuenta).setTypeMoney(moneda);
+			((ForeignAccount) cuenta).setMoneda(moneda);
+			;
 		}
 		cuentaDao.create(cuenta);
 	}

@@ -1,6 +1,6 @@
 package minibank.bbva.impl;
 
-import minibank.bbva.inter.ResultChange;
+import minibank.bbva.impl.inter.ResultChange;
 import minibank.bbva.model.entitys.enums.TypeMoney;
 
 public class ResultadoImpl implements ResultChange {

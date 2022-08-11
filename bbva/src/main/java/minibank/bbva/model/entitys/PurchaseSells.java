@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-@Entity
+@Entity(name = "CompraVenta")
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)

@@ -7,16 +7,16 @@
 	<persistence-unit name="minibancoPU"
 		transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-		<class>org.cursobbva.modulo4.proyecto.minibanco.modelo.Cliente</class>
-		<class>org.cursobbva.modulo4.proyecto.minibanco.modelo.Compra</class>
-		<class>org.cursobbva.modulo4.proyecto.minibanco.modelo.Cuenta</class>
-		<class>org.cursobbva.modulo4.proyecto.minibanco.modelo.CuentaExtranjera</class>
-		<class>org.cursobbva.modulo4.proyecto.minibanco.modelo.CuentaLocal</class>
-		<class>org.cursobbva.modulo4.proyecto.minibanco.modelo.Deposito</class>
-		<class>org.cursobbva.modulo4.proyecto.minibanco.modelo.Extraccion</class>
-		<class>org.cursobbva.modulo4.proyecto.minibanco.modelo.TransferenciaCredito</class>
-		<class>org.cursobbva.modulo4.proyecto.minibanco.modelo.TransferenciaDebito</class>
-		<class>org.cursobbva.modulo4.proyecto.minibanco.modelo.Venta</class>
+		<class>minibank.bbva.model.entitys.Client</class>
+		<class>minibank.bbva.model.entitys.Compra</class>
+		<class>minibank.bbva.model.entitys.Purchases</class>
+		<class>minibank.bbva.model.entitys.ForeignAccount</class>
+		<class>minibank.bbva.model.entitys.LocalAccount</class>
+		<class>minibank.bbva.model.entitys.Deposit</class>
+		<class>minibank.bbva.model.entitys.Extraction</class>
+		<class>minibank.bbva.model.entitys.TransferCredit</class>
+		<class>minibank.bbva.model.entitys.TransferDebit</class>
+		<class>minibank.bbva.model.entitys.Sells</class>
 		<exclude-unlisted-classes></exclude-unlisted-classes>
 		<validation-mode>CALLBACK</validation-mode>
 		<properties>
