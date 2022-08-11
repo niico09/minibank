@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/jdbc 
+        http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
+        http://www.springframework.org/schema/tx 
+        http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<context:property-placeholder
+		location="db/jdbc.properties" />
+
+	<bean id="baseDeDatos"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+		p:driverClassName="${jdbc.driverClassName}" p:url="${jdbc.url}"
+		p:username="${jdbc.username}" p:password="${jdbc.password}" />
+
+	<bean id="emf"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="baseDeDatos" />
+		<property name="packagesToScan"
+			value="minibank.bbva.model.entitys" />
+		<property name="jpaVendorAdapter">
+			<bean
+				class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+		</property>
+		<property name="jpaProperties">
+			<props>
+	  			<prop key="javax.persistence.schema-generation.database.action">drop-and-create</prop>
+	  			<prop key="javax.persistence.schema-generation.create-source">script</prop>
+      			<prop key="javax.persistence.schema-generation.create-script-source">src/main/resources/db/create.ddl</prop>
+      			<prop key="javax.persistence.schema-generation.drop-source">script</prop>
+      			<prop key="javax.persistence.schema-generation.drop-script-source">src/main/resources/db/drop.ddl</prop>
+      			<prop key="javax.persistence.sql-load-script-source">src/main/resources/db/initddl.ddl</prop>
+			</props>
+		</property>
+	</bean>
+
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="emf" />
+	</bean>
+	
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+
+	<bean id="persistenceExceptionTranslationPostProcessor"
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+	<context:component-scan
+		base-package="org.cursobbva.modulo4.proyecto.minibanco.dao,org.cursobbva.modulo4.proyecto.minibanco.servicio,org.cursobbva.modulo4.proyecto.minibanco.implem">
+	</context:component-scan>
+</beans>

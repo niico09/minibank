@@ -1,29 +1,47 @@
 package minibank.bbva.model.entitys;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
-@Entity
-public class Movements {
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity(name = "MOVIMIENTOS")
+@Inheritance(strategy = InheritanceType.JOINED)
+@NamedQueries({
+		@NamedQuery(name = "MOVIMIENTOS.searchAccount", query = "select mov from MOVIMIENTOS mov where mov.cuenta.numero=:idCuenta"), })
+@Data
+@NoArgsConstructor
+public abstract class Movements {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private Date dayTransfer;
+	@Column(updatable = false)
+	private LocalDateTime fechayHora;
 
-	private double amount;
+	@Column(updatable = false)
+	private Double monto;
 
-	private String description;
+	@Column(updatable = false)
+	private String descripcion;
 
-	private String typeMoney;
-
-	private String origin;
-
-	private String destination;
-
-	private String site;
+	@ManyToOne
+	@JsonIgnore
+	Account cuenta;
 
 	public Long getId() {
 		return id;
@@ -33,60 +51,36 @@ public class Movements {
 		this.id = id;
 	}
 
-	public Date getDayTransfer() {
-		return dayTransfer;
+	public LocalDateTime getFechayHora() {
+		return fechayHora;
 	}
 
-	public void setDayTransfer(Date dayTransfer) {
-		this.dayTransfer = dayTransfer;
+	public void setFechayHora(LocalDateTime fechayHora) {
+		this.fechayHora = fechayHora;
 	}
 
-	public double getAmount() {
-		return amount;
+	public Double getMonto() {
+		return monto;
 	}
 
-	public void setAmount(double amount) {
-		this.amount = amount;
+	public void setMonto(Double monto) {
+		this.monto = monto;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getDescripcion() {
+		return descripcion;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
-	public String getTypeMoney() {
-		return typeMoney;
+	public Account getCuenta() {
+		return cuenta;
 	}
 
-	public void setTypeMoney(String typeMoney) {
-		this.typeMoney = typeMoney;
-	}
-
-	public String getOrigin() {
-		return origin;
-	}
-
-	public void setOrigin(String origin) {
-		this.origin = origin;
-	}
-
-	public String getDestination() {
-		return destination;
-	}
-
-	public void setDestination(String destination) {
-		this.destination = destination;
-	}
-
-	public String getSite() {
-		return site;
-	}
-
-	public void setSite(String site) {
-		this.site = site;
+	public void setCuenta(Account cuenta) {
+		this.cuenta = cuenta;
 	}
 
 }

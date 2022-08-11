@@ -1,11 +1,12 @@
 package minibank.bbva;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration;
+import org.springframework.context.annotation.ImportResource;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = TransactionAutoConfiguration.class)
+@ImportResource("spring/contexto-jpa.xml")
 public class BbvaApplication {
 
 	public static void main(String[] args) {
