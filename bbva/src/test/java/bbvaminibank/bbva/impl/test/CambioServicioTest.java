@@ -11,18 +11,23 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
-import minibank.bbva.impl.ServiceImpl;
 import minibank.bbva.impl.inter.ResultChange;
+import minibank.bbva.impl.inter.ServiceChange;
 import minibank.bbva.model.entitys.enums.TypeMoney;
+
+/**
+ * 
+ * @author Matias Castillo
+ *
+ */
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration("classpath:/spring/contexto-jpa-test.xml")
 @Transactional
-public class ServiceChangeTest {
-	
+class CambioServicioTest {
 	@Autowired
-	ServiceImpl servicioCambio;
-
+	ServiceChange servicioCambio;
+	
 	@BeforeEach
 	public void inicioCadaTest() {
 		MockitoAnnotations.openMocks(this);
@@ -30,9 +35,10 @@ public class ServiceChangeTest {
 
 	@Test
 	public void CalculoOK() {
+	
+	ResultChange resultadoCambio = (ResultChange) servicioCambio.change(TypeMoney.USD, TypeMoney.ARS, 1000.0);
 
-		ResultChange resultadoCambio = (ResultChange) servicioCambio.change(TypeMoney.USD, TypeMoney.ARS, 1000.0);
-		assertEquals(resultadoCambio.getResultado(), resultadoCambio.getTasa() * 1000.0);
-
+	assertEquals(resultadoCambio.getResultado(), resultadoCambio.getTasa()*1000.0);
+	
 	}
 }
