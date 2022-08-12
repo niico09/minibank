@@ -1,16 +1,26 @@
 package minibank.bbva.model.entitys;
 
 import javax.persistence.Embeddable;
+import javax.validation.constraints.NotEmpty;
 
 @Embeddable
 public class Address {
 
+	@NotEmpty(message = "{direccion.calle}")
 	private String calle;
+
+	@NotEmpty(message = "{direccion.numero}")
 	private String numero;
 	private String departamento;
 	private String piso;
+
+	@NotEmpty(message = "{direccion.ciudad}")
 	private String ciudad;
+
+	@NotEmpty(message = "{direccion.codigoPostal}")
 	private String codigoPostal;
+
+	@NotEmpty(message = "{direccion.provincia}")
 	private String provincia;
 
 	public String getCalle() {

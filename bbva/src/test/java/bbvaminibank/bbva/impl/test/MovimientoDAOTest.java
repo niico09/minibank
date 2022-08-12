@@ -19,6 +19,7 @@ import minibank.bbva.model.entitys.Extraction;
 
 /**
  * TEST para DAO de Movimiento
+ * 
  * @author Matias Castillo
  *
  */
@@ -28,7 +29,7 @@ class MovimientoDAOTest {
 	static EntityManagerFactory emf;
 	static EntityManager em;
 	static EntityTransaction tx;
-	
+
 	Extraction ext;
 	MovementsDAO movDao;
 
@@ -45,7 +46,6 @@ class MovimientoDAOTest {
 		movDao = new MovementsDAO(em);
 	}
 
-
 	@Test
 	public void testCreateExtraccionOk() {
 		ext = new Extraction();
@@ -58,14 +58,10 @@ class MovimientoDAOTest {
 		Extraction movguardado = em.find(Extraction.class, ext.getId());
 		assertTrue(movguardado.equals(ext));
 	}
-	
-	
+
 	@AfterEach
 	public void finalCadaTest() {
 		tx.rollback();
 	}
-	
 
-	
-	
 }

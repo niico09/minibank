@@ -18,6 +18,7 @@ import minibank.bbva.service.ServiceClient;
 
 /**
  * TEST para Alta de Cliente y Cambio de Direccion
+ * 
  * @author Matias Castillo
  *
  */
@@ -28,8 +29,9 @@ import minibank.bbva.service.ServiceClient;
 class ClienteServicioTest {
 	@Autowired
 	private ServiceClient servicioCliente;
-	@Autowired 
+	@Autowired
 	private ClientDAO cteDao;
+
 	@BeforeEach
 	public void inicioCadaTest() {
 
@@ -45,7 +47,7 @@ class ClienteServicioTest {
 		dir.setProvincia("provincia1");
 		dir.setCalle("calle1");
 		dir.setDepartamento("departamento1");
-		
+
 		var cte = new Client();
 		cte.setNombre("nombre");
 		cte.setApellido("apellido");
@@ -57,7 +59,6 @@ class ClienteServicioTest {
 		assertEquals("apellido", cte.getApellido());
 	}
 
-	
 	@Test
 	public void testClienteById() {
 		Client cte = servicioCliente.readById(1L);
@@ -66,7 +67,9 @@ class ClienteServicioTest {
 
 	@Test
 	public void testClienteInexistente() {
-		IllegalArgumentException excep = assertThrows(IllegalArgumentException.class, () -> {servicioCliente.readById(0L);});
+		IllegalArgumentException excep = assertThrows(IllegalArgumentException.class, () -> {
+			servicioCliente.readById(0L);
+		});
 		assertEquals("Cliente Inexistente", excep.getMessage());
 	}
 
@@ -80,11 +83,11 @@ class ClienteServicioTest {
 		dir.setProvincia("provincia1");
 		dir.setCalle("calle1");
 		dir.setDepartamento("departamento1");
-		
+
 		Client cte = servicioCliente.readById(1L);
 		cte.setDireccion(dir);
 		Client cte1 = servicioCliente.readById(1L);
-		
+
 		assertEquals("nueva calle", cte1.getDireccion().getCalle());
 		assertEquals("nro", cte1.getDireccion().getNumero());
 		assertEquals("dtp", cte1.getDireccion().getDepartamento());
@@ -94,4 +97,3 @@ class ClienteServicioTest {
 		assertEquals("provincia", cte1.getDireccion().getProvincia());
 	}
 }
-

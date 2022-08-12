@@ -38,9 +38,9 @@ class CuentaDAOSpringTest {
 	private ClientDAO cteDao;
 	@Autowired
 	private AccountDAO ctaDao;
-    @PersistenceContext
-    private EntityManager em;     
-	
+	@PersistenceContext
+	private EntityManager em;
+
 	Address dir;
 	Client cte;
 	Account cta;
@@ -55,7 +55,7 @@ class CuentaDAOSpringTest {
 		dir.setProvincia("provincia1");
 		dir.setCalle("calle1");
 		dir.setDepartamento("departamento1");
-		
+
 		var cte = new Client();
 		cte.setNombre("nombre");
 		cte.setApellido("apellido");
@@ -63,7 +63,6 @@ class CuentaDAOSpringTest {
 		cte.setEmail("email@email.com");
 		cte.setDireccion(dir);
 	}
-
 
 	@Test
 	public void testCreateCuentaOk() {
@@ -78,12 +77,12 @@ class CuentaDAOSpringTest {
 		cteDao.create(cte);
 		ctaDao.create(cta);
 		em.flush();
- 		assertNotNull(cta.getNumero());
- 		em.clear();
+		assertNotNull(cta.getNumero());
+		em.clear();
 		Account ctaguardada = em.find(Account.class, cta.getNumero());
 		assertTrue(ctaguardada.equals(cta));
- 		assertNotNull(ctaguardada);
- 		assertFalse(cta == ctaguardada);
+		assertNotNull(ctaguardada);
+		assertFalse(cta == ctaguardada);
 	}
 
 	@Test
@@ -102,7 +101,7 @@ class CuentaDAOSpringTest {
 		Account ctaguardada = ctaDao.read(cta.getNumero());
 		assertTrue(ctaguardada.equals(cta));
 	}
-	
+
 	@Test
 	public void testUpdateCuentaOk() {
 		cta = new ForeignAccount();
@@ -116,7 +115,7 @@ class CuentaDAOSpringTest {
 		ctaDao.create(cta);
 		em.flush();
 		assertNotNull(cta.getNumero());
- 		em.clear();
+		em.clear();
 		cta.setFechaCierre(LocalDate.now());
 		ctaDao.update(cta);
 		em.flush();
@@ -139,17 +138,17 @@ class CuentaDAOSpringTest {
 		ctaDao.create(cta);
 		em.flush();
 		assertNotNull(cta.getNumero());
- 		em.clear();
- 		Account ctab = ctaDao.read(cta.getNumero());
- 		ctab.setSaldoInicial(12345D);
+		em.clear();
+		Account ctab = ctaDao.read(cta.getNumero());
+		ctab.setSaldoInicial(12345D);
 		ctaDao.update(ctab);
-		em.flush();em.clear();
+		em.flush();
+		em.clear();
 		Account ctaActualizada = ctaDao.read(ctab.getNumero());
 //		assertEquals(0,ctaActualizada.getSaldoInicial()); ------ ver
 //		assertEquals(12345D,ctab.getSaldoInicial()); ------ ver
 	}
 
-	
 	@Test
 	public void testDeleteCuentaOk() {
 		cta = new ForeignAccount();
@@ -166,8 +165,8 @@ class CuentaDAOSpringTest {
 		cteDao.create(cte);
 		ctaDao.create(cta);
 		em.flush();
- 		assertNotNull(cte.getId());
- 		em.clear();
+		assertNotNull(cte.getId());
+		em.clear();
 		Account ctaeActualizada = ctaDao.read(cta.getNumero());
 		assertTrue(em.contains(ctaeActualizada));
 		ctaDao.delete(ctaeActualizada);
@@ -175,5 +174,4 @@ class CuentaDAOSpringTest {
 		assertTrue(!em.contains(cta));
 	}
 
-	
 }

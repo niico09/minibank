@@ -2,6 +2,7 @@ package minibank.bbva.model.entitys;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.validation.constraints.Positive;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -13,6 +14,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = false)
 public class PurchaseSells extends Movements {
 
+	@Positive(message = "{movimiento.cotizacion}")
 	@Column(updatable = false)
 	private Double cotizacion;
 	@Column(updatable = false)

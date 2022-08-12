@@ -19,6 +19,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.PositiveOrZero;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -36,19 +39,25 @@ public abstract class Account {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long numero;
 
+	@NotNull(message = "{cuenta.fechaCreacion}")
+	@PastOrPresent(message = "{cuenta.fechaCreacion.pasado}")
 	@Column(updatable = false)
 	private LocalDate fechaCreacion;
 
+	@PositiveOrZero(message = "{cuenta.saldoInicial}")
 	@Column(updatable = false)
 	private Double saldoInicial;
 
+	@NotNull(message = "{cuenta.saldoActual}")
 	private Double saldoActual;
 
+	@PositiveOrZero(message = "{cuenta.descubiertoAcordado}")
 	private Double descubiertoAcordado;
 	private LocalDate fechaCierre;
 
 	@ManyToOne
 	@JoinColumn(name = "titular_Id", updatable = false)
+	@NotNull(message = "{cuenta.titular}")
 	@JsonIgnore
 	private Client titular;
 
@@ -141,6 +150,18 @@ public abstract class Account {
 		movimientos.add(transferCredit);
 		transferCredit.setCuenta(this);
 
+	}
+
+	public void agregarMovimiento(Deposit deposito) {
+		saldoActual = saldoActual + deposito.getMonto();
+		movimientos.add(deposito);
+		deposito.setCuenta(this);
+	}
+
+	public void agregarMovimiento(Extraction extraccion) {
+		saldoActual = saldoActual - extraccion.getMonto();
+		movimientos.add(extraccion);
+		extraccion.setCuenta(this);
 	}
 
 	public abstract void agregarMovimiento(Sells vta);

@@ -14,25 +14,22 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import minibank.bbva.model.entitys.Address;
+
 /**
  * TEST de Constructor y Validacion de atributos de Direccion de Cliente
+ * 
  * @author Matias Castillo
  *
  */
 public class DireccionTest {
-	
-	Address dir;
+
+	Address dir = new Address();
 	ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 	Validator validator = factory.getValidator();
-	
-	@BeforeEach
-	public void crearDireccion() {
-		//dir = new Direccion("calle1", "numero1", "departamento1", "piso1", "ciudadir", "codigoPostal1", "provincia1");
-	}
 
 	@Test
 	public void testContructorDireccionOk() {
-		var dir = new Address();
+		dir = new Address();
 		dir.setNumero("numero1");
 		dir.setPiso("piso1");
 		dir.setCiudad("ciudad1");
@@ -40,13 +37,14 @@ public class DireccionTest {
 		dir.setProvincia("provincia1");
 		dir.setCalle("calle1");
 		dir.setDepartamento("departamento1");
+
 		String calle = "calle1";
 		String numero = "numero1";
 		String departamento = "departamento1";
-		String piso= "piso1";
-		String ciudad = "ciudadir";
+		String piso = "piso1";
+		String ciudad = "ciudad1";
 		String codigoPostal = "codigoPostal1";
-		String provincia= "provincia1";
+		String provincia = "provincia1";
 		assertEquals(calle, dir.getCalle());
 		assertEquals(numero, dir.getNumero());
 		assertEquals(departamento, dir.getDepartamento());
@@ -61,11 +59,11 @@ public class DireccionTest {
 		String calle = "";
 		String numero = "";
 		String departamento = "";
-		String piso= "";
+		String piso = "";
 		String ciudad = "";
 		String codigoPostal = "";
-		String provincia= "";
-		
+		String provincia = "";
+
 		var dir = new Address();
 		dir.setNumero(numero);
 		dir.setPiso(piso);
@@ -77,8 +75,8 @@ public class DireccionTest {
 
 		Set<ConstraintViolation<Address>> violations = validator.validate(dir);
 		assertTrue(!violations.isEmpty());
-		assertEquals(5,violations.size());
-		
+		assertEquals(5, violations.size());
+
 	}
 
 }

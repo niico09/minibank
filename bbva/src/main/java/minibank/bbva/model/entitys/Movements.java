@@ -12,6 +12,10 @@ import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Positive;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -31,11 +35,15 @@ public abstract class Movements {
 	private Long id;
 
 	@Column(updatable = false)
+	@NotNull(message = "{movimiento.fechaHora}")
+	@PastOrPresent(message = "{movimiento.fechaHora.pasado}")
 	private LocalDateTime fechayHora;
 
+	@Positive(message = "{movimiento.monto}")
 	@Column(updatable = false)
 	private Double monto;
 
+	@NotEmpty(message = "{movimiento.descripcion}")
 	@Column(updatable = false)
 	private String descripcion;
 

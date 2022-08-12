@@ -16,6 +16,7 @@ import minibank.bbva.service.AccountService;
 
 /**
  * TEST de Agregar Cotitular en una Cuenta
+ * 
  * @author Matias Castillo
  *
  */
@@ -26,7 +27,7 @@ import minibank.bbva.service.AccountService;
 class CuentaServicioTest {
 	@Autowired
 	private AccountService servicioCuenta;
-	
+
 	@BeforeEach
 	public void inicioCadaTest() {
 
@@ -34,48 +35,57 @@ class CuentaServicioTest {
 
 	@Test
 	public void testCuentaInexistente() {
-		IllegalArgumentException excep = assertThrows(IllegalArgumentException.class, () -> {servicioCuenta.accountById(0L);});
+		IllegalArgumentException excep = assertThrows(IllegalArgumentException.class, () -> {
+			servicioCuenta.accountById(0L);
+		});
 		assertEquals("Cuenta Inexistente", excep.getMessage());
 	}
 
-	
 	@Test
 	public void testAgregarCotitularClienteInexistente() {
-		IllegalArgumentException excep = assertThrows(IllegalArgumentException.class, () -> {servicioCuenta.addCotitular(50L, 1L);});
+		IllegalArgumentException excep = assertThrows(IllegalArgumentException.class, () -> {
+			servicioCuenta.addCotitular(50L, 1L);
+		});
 		assertEquals("Cliente Inexistente", excep.getMessage());
 	}
 
 	@Test
 	public void testAgregarCotitularCuentaInexistente() {
-		IllegalArgumentException excep = assertThrows(IllegalArgumentException.class, () -> {servicioCuenta.addCotitular(1L, 50L);});
+		IllegalArgumentException excep = assertThrows(IllegalArgumentException.class, () -> {
+			servicioCuenta.addCotitular(1L, 50L);
+		});
 		assertEquals("Cuenta Inexistente", excep.getMessage());
 	}
 
 	@Test
 	public void testAgregarCotitularCuentaCerrada() {
-		IllegalArgumentException excep = assertThrows(IllegalArgumentException.class, () -> {servicioCuenta.addCotitular(1L, 2L);});
+		IllegalArgumentException excep = assertThrows(IllegalArgumentException.class, () -> {
+			servicioCuenta.addCotitular(1L, 2L);
+		});
 		assertEquals("Cuenta cerrada", excep.getMessage());
 	}
 
-
 	@Test
 	public void testAgregarCotitularClienteEsTitular() {
-		IllegalArgumentException excep = assertThrows(IllegalArgumentException.class, () -> {servicioCuenta.addCotitular(1L, 1L);});
+		IllegalArgumentException excep = assertThrows(IllegalArgumentException.class, () -> {
+			servicioCuenta.addCotitular(1L, 1L);
+		});
 		assertEquals("El cliente ya es titular de la cuenta", excep.getMessage());
 	}
 
-
 	@Test
 	public void testAgregarCotitularClienteEsCoTitular() {
-		IllegalArgumentException excep = assertThrows(IllegalArgumentException.class, () -> {servicioCuenta.addCotitular(1L, 4L);});
+		IllegalArgumentException excep = assertThrows(IllegalArgumentException.class, () -> {
+			servicioCuenta.addCotitular(1L, 4L);
+		});
 		assertEquals("El cliente ya es cotitular de la cuenta", excep.getMessage());
 	}
 
 	@Test
 	public void testAagregarCotitulaOK() {
 		Account cta = servicioCuenta.addCotitular(4L, 1L);
-		assertEquals(1,cta.getCotitulares().size(),0);
-		
+		assertEquals(1, cta.getCotitulares().size(), 0);
+
 	}
-	
+
 }
