@@ -34,14 +34,6 @@ class CuentaServicioTest {
 	}
 
 	@Test
-	public void testCuentaInexistente() {
-		IllegalArgumentException excep = assertThrows(IllegalArgumentException.class, () -> {
-			servicioCuenta.accountById(0L);
-		});
-		assertEquals("Cuenta Inexistente", excep.getMessage());
-	}
-
-	@Test
 	public void testAgregarCotitularClienteInexistente() {
 		IllegalArgumentException excep = assertThrows(IllegalArgumentException.class, () -> {
 			servicioCuenta.addCotitular(50L, 1L);

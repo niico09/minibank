@@ -132,35 +132,6 @@ class ClienteDAOTest {
 		assertTrue(!em.contains(cteActualizado));
 	}
 
-	@Test
-	public void testCreateClienteErrorNombre() {
-		cte = new Client();
-		cte.setNombre(null);
-		cte.setApellido("apellido");
-		cte.setTelefono("telefono");
-		cte.setEmail("email@email.com");
-		cte.setDireccion(dir);
-
-		IllegalArgumentException excep = assertThrows(IllegalArgumentException.class, () -> {
-			cteDao.create(cte);
-		});
-		assertEquals("Nombre Invalido", excep.getMessage());
-	}
-
-	@Test
-	public void testCreateClienteErrorApellido() {
-		cte = new Client();
-		cte.setNombre("nombre");
-		cte.setApellido("");
-		cte.setTelefono("telefono");
-		cte.setEmail("email@email.com");
-		cte.setDireccion(dir);
-
-		IllegalArgumentException excep = assertThrows(IllegalArgumentException.class, () -> {
-			cteDao.create(cte);
-		});
-		assertEquals("Apellido Invalido", excep.getMessage());
-	}
 
 	@AfterEach
 	public void finalCadaTest() {

@@ -52,6 +52,6 @@
 		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
 
 	<context:component-scan
-		base-package="org.cursobbva.modulo4.proyecto.minibanco.main,org.cursobbva.modulo4.proyecto.minibanco.dao,org.cursobbva.modulo4.proyecto.minibanco.servicio,org.cursobbva.modulo4.proyecto.minibanco.implem">
+		base-package="minibank.bbva.model.dao,minibank.bbva.service,minibank.bbva.impl,minibank.bbva.impl.inter">
 	</context:component-scan>
 </beans>

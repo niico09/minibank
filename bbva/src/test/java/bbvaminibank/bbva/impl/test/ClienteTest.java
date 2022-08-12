@@ -305,7 +305,7 @@ public class ClienteTest {
 
 		cta1.getCotitulares().add(cte);
 
-		assertTrue(cte.cuentaDelCliente(cta1));
+		assertTrue(!cte.cuentaDelCliente(cta1));
 		assertTrue(!cte.cuentaDelCliente(cta2));
 
 	}

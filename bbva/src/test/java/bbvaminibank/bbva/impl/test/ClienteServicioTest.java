@@ -66,23 +66,15 @@ class ClienteServicioTest {
 	}
 
 	@Test
-	public void testClienteInexistente() {
-		IllegalArgumentException excep = assertThrows(IllegalArgumentException.class, () -> {
-			servicioCliente.readById(0L);
-		});
-		assertEquals("Cliente Inexistente", excep.getMessage());
-	}
-
-	@Test
 	public void testClienteCambioDireccion() {
 		var dir = new Address();
-		dir.setNumero("numero1");
-		dir.setPiso("piso1");
+		dir.setNumero("nro");
+		dir.setPiso("");
 		dir.setCiudad("ciudad1");
-		dir.setCodigoPostal("codigoPostal1");
-		dir.setProvincia("provincia1");
-		dir.setCalle("calle1");
-		dir.setDepartamento("departamento1");
+		dir.setCodigoPostal("cp");
+		dir.setProvincia("provincia");
+		dir.setCalle("nueva calle");
+		dir.setDepartamento("dtp");
 
 		Client cte = servicioCliente.readById(1L);
 		cte.setDireccion(dir);

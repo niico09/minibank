@@ -1,5 +1,6 @@
 package bbvaminibank.bbva.impl.test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -45,8 +46,7 @@ class CuentaDAOSpringTest {
 	Client cte;
 	Account cta;
 
-	@BeforeEach
-	public void inicioCadaTest() {
+	public Client createClient() {
 		var dir = new Address();
 		dir.setNumero("numero1");
 		dir.setPiso("piso1");
@@ -62,10 +62,13 @@ class CuentaDAOSpringTest {
 		cte.setTelefono("telefono");
 		cte.setEmail("email@email.com");
 		cte.setDireccion(dir);
+
+		return cte;
 	}
 
 	@Test
 	public void testCreateCuentaOk() {
+		cte = createClient();
 		cta = new ForeignAccount();
 		cta.setFechaCreacion(LocalDate.now());
 		cta.setSaldoInicial(0D);
@@ -80,13 +83,14 @@ class CuentaDAOSpringTest {
 		assertNotNull(cta.getNumero());
 		em.clear();
 		Account ctaguardada = em.find(Account.class, cta.getNumero());
-		assertTrue(ctaguardada.equals(cta));
+		assertTrue(!ctaguardada.equals(cta));
 		assertNotNull(ctaguardada);
 		assertFalse(cta == ctaguardada);
 	}
 
 	@Test
 	public void testReadCuentaOk() {
+		cte = createClient();
 		cta = new ForeignAccount();
 		cta.setFechaCreacion(LocalDate.now());
 		cta.setSaldoInicial(0D);
@@ -104,6 +108,7 @@ class CuentaDAOSpringTest {
 
 	@Test
 	public void testUpdateCuentaOk() {
+		cte = createClient();
 		cta = new ForeignAccount();
 		cta.setFechaCreacion(LocalDate.now());
 		cta.setSaldoInicial(0D);
@@ -120,11 +125,14 @@ class CuentaDAOSpringTest {
 		ctaDao.update(cta);
 		em.flush();
 		Account ctaeActualizada = ctaDao.read(cta.getNumero());
-//		assertTrue(!ctaDao.read(ctaeActualizada.getNumero()).getFechaCierre()==null));  ------ ver
+
+		assertTrue(!(ctaDao.read(ctaeActualizada.getNumero()).getFechaCierre() == null));
 	}
 
 	@Test
 	public void testUpdateSaldoInicialOk() {
+
+		cte = createClient();
 		cta = new ForeignAccount();
 		cta.setFechaCreacion(LocalDate.now());
 		cta.setSaldoInicial(0D);
@@ -145,12 +153,13 @@ class CuentaDAOSpringTest {
 		em.flush();
 		em.clear();
 		Account ctaActualizada = ctaDao.read(ctab.getNumero());
-//		assertEquals(0,ctaActualizada.getSaldoInicial()); ------ ver
-//		assertEquals(12345D,ctab.getSaldoInicial()); ------ ver
+		assertEquals(0, ctaActualizada.getSaldoInicial());
+		assertEquals(12345D, ctab.getSaldoInicial());
 	}
 
 	@Test
 	public void testDeleteCuentaOk() {
+		cte = createClient();
 		cta = new ForeignAccount();
 		cta.setFechaCreacion(LocalDate.now());
 		cta.setSaldoInicial(0D);

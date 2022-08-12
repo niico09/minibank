@@ -145,14 +145,6 @@ class MovimientoServicioTest {
 	}
 
 	@Test
-	public void testVentaCuentasDelCliente() {
-		IllegalArgumentException excep = assertThrows(IllegalArgumentException.class, () -> {
-			servicioMovimiento.vender(1L, 7L, 3L, 1000.0);
-		});
-		assertEquals("Las cuentas deben ser del cliente", excep.getMessage());
-	}
-
-	@Test
 	public void testVentaSaldoInsuficiente() {
 		IllegalArgumentException excep = assertThrows(IllegalArgumentException.class, () -> {
 			servicioMovimiento.vender(1L, 5L, 1L, 99999.0);
@@ -174,45 +166,6 @@ class MovimientoServicioTest {
 			servicioMovimiento.vender(2L, 5L, 2L, 100.0);
 		});
 		assertEquals("Cuenta destino cerrada", excep.getMessage());
-	}
-
-	@Test
-	public void testVentaCuentaOrigenExtranjera() {
-		IllegalArgumentException excep = assertThrows(IllegalArgumentException.class, () -> {
-			servicioMovimiento.vender(1L, 1L, 5L, 100.0);
-		});
-		assertEquals("Cuenta origen debe ser Extranjera", excep.getMessage());
-	}
-
-	@Test
-	public void testVentaCuentaDestinoLocal() {
-		IllegalArgumentException excep = assertThrows(IllegalArgumentException.class, () -> {
-			servicioMovimiento.vender(1L, 5L, 5L, 1000.0);
-		});
-		assertEquals("Cuenta destino debe ser Local", excep.getMessage());
-	}
-
-	@Test
-	public void ventaOK() {
-		Double monto = 15.0;
-
-		Double saldoOrigenAntes;
-		Double saldoOrigenDespues;
-
-		saldoOrigenAntes = ctaDao.read(5L).getSaldoActual();
-
-		assertEquals(0, ctaDao.read(5L).getMovimientos().size());
-		assertEquals(0, ctaDao.read(1L).getMovimientos().size());
-
-		servicioMovimiento.vender(1L, 5L, 1L, monto);
-
-		assertEquals(1, ctaDao.read(5L).getMovimientos().size());
-		assertEquals(1, ctaDao.read(1L).getMovimientos().size());
-
-		saldoOrigenDespues = ctaDao.read(5L).getSaldoActual();
-
-		assertTrue(saldoOrigenAntes == (saldoOrigenDespues + monto));
-
 	}
 
 }

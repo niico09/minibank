@@ -25,9 +25,10 @@ import minibank.bbva.model.entitys.enums.TypeMoney;
 @ContextConfiguration("classpath:/spring/contexto-jpa-test.xml")
 @Transactional
 class CambioServicioTest {
-	@Autowired
+
+	@Autowired(required = true)
 	ServiceChange servicioCambio;
-	
+
 	@BeforeEach
 	public void inicioCadaTest() {
 		MockitoAnnotations.openMocks(this);
@@ -35,10 +36,10 @@ class CambioServicioTest {
 
 	@Test
 	public void CalculoOK() {
-	
-	ResultChange resultadoCambio = (ResultChange) servicioCambio.change(TypeMoney.USD, TypeMoney.ARS, 1000.0);
 
-	assertEquals(resultadoCambio.getResultado(), resultadoCambio.getTasa()*1000.0);
-	
+		ResultChange resultadoCambio = (ResultChange) servicioCambio.change(TypeMoney.USD, TypeMoney.ARS, 1000.0);
+
+		assertEquals(resultadoCambio.getResultado(), resultadoCambio.getTasa() * 1000.0);
+
 	}
 }
